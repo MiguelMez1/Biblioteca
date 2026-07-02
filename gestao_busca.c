@@ -3,7 +3,7 @@
 #include <string.h>
 #include <windows.h>
 
-#define QTD_LIVROS 2
+#define QTD_LIVROS 3
 #define TAM_TEXTO 100
 
 typedef struct {
@@ -23,12 +23,17 @@ void buscarPorAutor(Livro livros[], int total);
 void buscarPorCategoria(Livro livros[], int total);
 void buscarPorAno(Livro livros[], int total);
 void exibirLivro(Livro livro);
+void alterarLivro(Livro livros[], int total);
+void excluirLivro(Livro livros[], int *total);
+void listarLivros(Livro livros[], int total);
+
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
 
     Livro livros[QTD_LIVROS];
     int opcao;
+    int totalLivros = QTD_LIVROS;
 
     printf("===== CADASTRO DE LIVROS =====\n");
     cadastrarLivros(livros);
@@ -40,24 +45,36 @@ int main() {
 
         switch (opcao) {
             case 1:
-                buscarPorCodigo(livros, QTD_LIVROS);
+                buscarPorCodigo(livros, totalLivros);
                 break;
 
             case 2:
-                buscarPorTitulo(livros, QTD_LIVROS);
+                buscarPorTitulo(livros, totalLivros);
                 break;
 
             case 3:
-                buscarPorAutor(livros, QTD_LIVROS);
+                buscarPorAutor(livros, totalLivros);
                 break;
 
             case 4:
-                buscarPorCategoria(livros, QTD_LIVROS);
+                buscarPorCategoria(livros, totalLivros);
                 break;
 
             case 5:
-                buscarPorAno(livros, QTD_LIVROS);
+                buscarPorAno(livros, totalLivros);
                 break;
+
+            case 6:
+                alterarLivro(livros, totalLivros);
+                break;
+
+            case 7:
+                excluirLivro(livros, &totalLivros);
+                break;  
+                
+            case 8:
+                listarLivros(livros, totalLivros);
+                break; 
 
             case 0:
                 printf("\nPrograma encerrado.\n");
@@ -79,6 +96,9 @@ void menu() {
     printf("3 - Autor\n");
     printf("4 - Categoria\n");
     printf("5 - Ano\n");
+    printf("6 - Alterar livro\n");
+    printf("7 - Excluir livro\n");
+    printf("8 - Listar livros\n");
     printf("0 - Sair\n");
     printf("Escolha uma opção: ");
 }
@@ -218,4 +238,101 @@ void buscarPorAno(Livro livros[], int total) {
 
     if (!encontrado)
         printf("\nNenhum livro encontrado.\n");
+}
+
+void alterarLivro(Livro livros[], int total)
+{
+    int codigo;
+    int encontrado = 0;
+
+    printf("\nDigite o código do livro que deseja alterar: ");
+    scanf("%d", &codigo);
+    limparBuffer();
+
+    for(int i = 0; i < total; i++)
+    {
+        if(livros[i].codigo == codigo)
+        {
+            printf("\n=== ALTERAÇÃO DE DADOS ===\n");
+
+            printf("Novo título: ");
+            fgets(livros[i].titulo, TAM_TEXTO, stdin);
+            livros[i].titulo[strcspn(livros[i].titulo, "\n")] = '\0';
+
+            printf("Novo autor: ");
+            fgets(livros[i].autor, TAM_TEXTO, stdin);
+            livros[i].autor[strcspn(livros[i].autor, "\n")] = '\0';
+
+            printf("Nova categoria: ");
+            fgets(livros[i].categoria, TAM_TEXTO, stdin);
+            livros[i].categoria[strcspn(livros[i].categoria, "\n")] = '\0';
+
+            printf("Novo ano: ");
+            scanf("%d", &livros[i].ano);
+            limparBuffer();
+
+            printf("\nLivro alterado com sucesso!\n");
+
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if(!encontrado)
+        printf("\nLivro não encontrado.\n");
+}
+
+void excluirLivro(Livro livros[], int *total)
+{
+    int codigo;
+    int posicao = -1;
+
+    printf("\nDigite o código do livro que deseja excluir: ");
+    scanf("%d", &codigo);
+    limparBuffer();
+
+    for(int i = 0; i < *total; i++)
+    {
+        if(livros[i].codigo == codigo)
+        {
+            posicao = i;
+            break;
+        }
+    }
+
+    if(posicao == -1)
+    {
+        printf("\nLivro não encontrado.\n");
+        return;
+    }
+
+    for(int i = posicao; i < *total - 1; i++)
+    {
+        livros[i] = livros[i + 1];
+    }
+
+    (*total)--;
+
+    printf("\nLivro excluído com sucesso!\n");
+}
+
+void listarLivros(Livro livros[], int total)
+{
+    if(total == 0)
+    {
+        printf("\nNenhum livro cadastrado.\n");
+        return;
+    }
+
+    printf("\n==== LISTA DE LIVROS ====\n");
+
+    for(int i = 0; i < total; i++)
+    {
+        printf("\nLivro %d\n", i + 1);
+        printf("Código: %d\n", livros[i].codigo);
+        printf("Título: %s\n", livros[i].titulo);
+        printf("Autor: %s\n", livros[i].autor);
+        printf("Categoria: %s\n", livros[i].categoria);
+        printf("Ano: %d\n", livros[i].ano);
+    }
 }
