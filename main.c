@@ -4,8 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+#include "cadastro.h"
+#define MAX 100
 
+cadastro lista[MAX];
 
+int total = 0;
 //Função para exibir MENU.
 void menu()
 {
@@ -32,23 +36,23 @@ int main()
         switch (opcao)
         {
         case 1:
-            
+            cadastrarLivro(lista, &total);          
             break;
             
         case 2:
-            
+            printf("buscar");
             break;
 
         case 3:
-            
+            printf("lista");
             break;
         
         case 4:
-            
+            printf("emprestimo");
             break;
 
         case 5:
-            
+            printf("alterar itens");
             break;
         }
     } while (opcao !=0);
