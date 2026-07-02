@@ -13,14 +13,13 @@ int total = 0;
 //Função para exibir MENU.
 void menu()
 {
-    printf("\n === MENU DE OPÇÕES === \n");
+    printf("\n === MENU DE LIVROS === \n");
     
     printf("\n1. Cadastro de Livros.");
     printf("\n2. Buscar.");
     printf("\n3. Listar (cadastrados).");
-    printf("\n4. Empréstimos.");
-    printf("\n5. Alterar itens.");
-    printf("\n6. Excluir.\n");
+    printf("\n4. Alterar itens.");
+    printf("\n5. Excluir.\n");
 }
 
 int main()
@@ -46,13 +45,14 @@ int main()
         case 3:
             printf("lista");
             break;
-        
+
+
         case 4:
-            printf("emprestimo");
+            printf("alterar itens");
             break;
 
         case 5:
-            printf("alterar itens");
+            printf("excluir");
             break;
         }
     } while (opcao !=0);
