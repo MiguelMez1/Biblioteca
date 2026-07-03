@@ -15,7 +15,8 @@ typedef struct {
 } Livro;
 
 void cadastrarLivros(Livro livros[]);
-void menu();
+void menuDeAlterecoes();
+void menuDeBusca();
 void limparBuffer();
 void buscarPorCodigo(Livro livros[], int total);
 void buscarPorTitulo(Livro livros[], int total);
@@ -26,55 +27,84 @@ void exibirLivro(Livro livro);
 void alterarLivro(Livro livros[], int total);
 void excluirLivro(Livro livros[], int *total);
 void listarLivros(Livro livros[], int total);
+void buscar(Livro livros[], int total);
 
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-
-    Livro livros[QTD_LIVROS];
     int opcao;
     int totalLivros = QTD_LIVROS;
+
+    Livro livros[QTD_LIVROS];
+
+
 
     printf("===== CADASTRO DE LIVROS =====\n");
     cadastrarLivros(livros);
 
-    do {
-        menu();
+    do{
+        menuDeAlterecoes();
+        scanf("%d", &opcao);
+        limparBuffer();
+
+        switch (opcao){
+        case 1:
+            buscar(livros, totalLivros);
+            break;
+
+        case 2:
+            alterarLivro(livros, totalLivros);
+            break;
+
+        case 3:
+            excluirLivro(livros, &totalLivros);
+            break;  
+                
+        case 4:
+            listarLivros(livros, totalLivros);
+            break;
+            
+        case 0:
+            printf("\nPrograma encerrado.\n");
+            break;
+
+            default:
+                printf("\nOpção inválida!\n");
+        }
+    }while(opcao != 0);
+ 
+    return 0;
+}
+
+void buscar(Livro livros[], int total){
+    int opcao;
+    /*int totalLivros = QTD_LIVROS;*/
+
+   do {
+        menuDeBusca();
         scanf("%d", &opcao);
         limparBuffer();
 
         switch (opcao) {
             case 1:
-                buscarPorCodigo(livros, totalLivros);
+                buscarPorCodigo(livros, total);
                 break;
 
             case 2:
-                buscarPorTitulo(livros, totalLivros);
+                buscarPorTitulo(livros, total);
                 break;
 
             case 3:
-                buscarPorAutor(livros, totalLivros);
+                buscarPorAutor(livros, total);
                 break;
 
             case 4:
-                buscarPorCategoria(livros, totalLivros);
+                buscarPorCategoria(livros, total);
                 break;
 
             case 5:
-                buscarPorAno(livros, totalLivros);
+                buscarPorAno(livros, total);
                 break;
-
-            case 6:
-                alterarLivro(livros, totalLivros);
-                break;
-
-            case 7:
-                excluirLivro(livros, &totalLivros);
-                break;  
-                
-            case 8:
-                listarLivros(livros, totalLivros);
-                break; 
 
             case 0:
                 printf("\nPrograma encerrado.\n");
@@ -86,19 +116,25 @@ int main() {
 
     } while (opcao != 0);
 
-    return 0;
 }
 
-void menu() {
+void menuDeAlterecoes() {
+    printf("\n==== MENU DE OPERAÇÕES ====\n");
+    printf("1 - buscar livro\n");
+    printf("2 - alterar livro\n");
+    printf("3 - excluir Livro\n");
+    printf("4 - listar Livros\n");
+    printf("0 - Sair\n");
+    printf("Escolha uma opção: ");
+}
+
+void menuDeBusca() {
     printf("\n==== MENU DE BUSCA ====\n");
     printf("1 - Código\n");
     printf("2 - Título\n");
     printf("3 - Autor\n");
     printf("4 - Categoria\n");
     printf("5 - Ano\n");
-    printf("6 - Alterar livro\n");
-    printf("7 - Excluir livro\n");
-    printf("8 - Listar livros\n");
     printf("0 - Sair\n");
     printf("Escolha uma opção: ");
 }
@@ -240,7 +276,7 @@ void buscarPorAno(Livro livros[], int total) {
         printf("\nNenhum livro encontrado.\n");
 }
 
-void alterarLivro(Livro livros[], int total)
+void alterarLivro(Livro livros[], int total) 
 {
     int codigo;
     int encontrado = 0;
