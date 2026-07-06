@@ -13,13 +13,13 @@ int total = 0;
 //Função para exibir MENU.
 void menu()
 {
-    printf("\n === MENU DE LIVROS === \n");
+    printf("\n === MENU PRINCIPAL === \n");
     
-    printf("\n1. Cadastro de Livros.");
-    printf("\n2. Buscar.");
-    printf("\n3. Listar (cadastrados).");
-    printf("\n4. Alterar itens.");
-    printf("\n5. Excluir.\n");
+    printf("\n1. Gestão de Livros.");
+    printf("\n2. Gestão de Usuarios.");
+    printf("\n3. Emprestimos");
+    printf("\n4. Relatorio.");
+    printf("\n5. Sair.\n");
 }
 
 int main()
@@ -39,20 +39,20 @@ int main()
             break;
             
         case 2:
-            printf("buscar");
+            printf("usuario");
             break;
 
         case 3:
-            printf("lista");
+            printf("emprestimo");
             break;
 
 
         case 4:
-            printf("alterar itens");
+            printf("relatorio");
             break;
 
         case 5:
-            printf("excluir");
+            printf("sair");
             break;
         }
     } while (opcao !=0);
