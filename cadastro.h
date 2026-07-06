@@ -12,6 +12,6 @@ typedef struct
     int quantDispo;
 } cadastro;
 
-void cadastrarLivro(cadastro lista[], int *total);
+void gestaoLivros(cadastro lista[], int *total);
 
 #endif

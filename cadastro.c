@@ -4,6 +4,7 @@
 
 #define MAX 100
 #define TAM_TEXTO 100
+#define CADASTRO_H
 
 typedef struct 
 {
@@ -183,7 +184,7 @@ void cadastrarLivro(cadastro lista[], int *total)
 }
 
 
-int main() {
+int gestaoLivros() {
     SetConsoleOutputCP(CP_UTF8);
     cadastro lista[MAX];
     int totalLivros = 0;

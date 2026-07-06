@@ -35,7 +35,7 @@ int main()
         switch (opcao)
         {
         case 1:
-            cadastrarLivro(lista, &total);          
+            gestaoLivros(lista, &total);          
             break;
             
         case 2:
