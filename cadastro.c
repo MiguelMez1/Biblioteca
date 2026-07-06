@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <windows.h>
 #include <string.h>
+#include "cadastro.h"
 #define MAX 100
 
+/*
 typedef struct 
 {
     int idCodigo;
@@ -13,7 +15,7 @@ typedef struct
     int quantTotal;
     int quantDispo;
 } cadastro;
-
+*/
 int cadastrarCodigo(cadastro lista[], int total)
 {
     int idCodigo;
@@ -165,16 +167,7 @@ void cadastrarLivro(cadastro lista[], int *total)
     
 }
 
-int main()
-{
-    SetConsoleOutputCP(CP_UTF8);
-    cadastro lista [MAX];
-    int total = 0;
 
-    cadastrarLivro(lista, &total);
-
-    return 0;
-}
 
 
 
