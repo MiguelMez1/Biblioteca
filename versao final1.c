@@ -4,17 +4,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-// ==========================================
-// LIMITES DO SISTEMA E DEFINIÇÕES
-// ==========================================
 #define MAX_LIVROS 100
 #define MAX_USUARIOS 50
 #define MAX_EMPRESTIMOS 200
 #define TAM_TEXTO 100
 
-// ==========================================
-// ESTRUTURAS (STRUCTS)
-// ==========================================
 typedef struct {
     int idCodigo;
     char nome[50];
@@ -39,14 +33,9 @@ typedef struct {
     int ativo; // 1 para emprestado, 0 para devolvido
 } Emprestimo;
 
-// ==========================================
-// PROTÓTIPOS GERAIS
-// ==========================================
 void limparBuffer();
 
-// ==========================================
-// MÓDULO 1 - USUÁRIOS (ADAPTADO COM REGRAS)
-// ==========================================
+// USUÁRIOS (ADAPTADO COM REGRAS)//
 int cadastrarCodigoUsuario(Usuario lista[], int total) {
     int idCodigo, valido;
     do {
@@ -170,9 +159,6 @@ void gestaoUsuarios(Usuario usuarios[], int *totalUsuarios, Emprestimo emprestim
     } while(opcao != 0);
 }
 
-// ==========================================
-// MÓDULO 2 - LIVROS (ADAPTADO COM REGRAS)
-// ==========================================
 int cadastrarCodigoLivro(cadastro lista[], int total) {
     int idCodigo, valido;
     do {
@@ -288,9 +274,6 @@ void gestaoLivros(cadastro livros[], int *totalLivros, Emprestimo emprestimos[],
     } while(opcao != 0);
 }
 
-// ==========================================
-// MÓDULO 3 - EMPRÉSTIMOS (NOVO)
-// ==========================================
 int buscarIndiceUsuario(Usuario usuarios[], int total, int codigo) {
     for (int i = 0; i < total; i++) {
         if (usuarios[i].idCodigo == codigo) return i;
@@ -388,9 +371,6 @@ void gestaoEmprestimos(Usuario usuarios[], int totalUsuarios, cadastro livros[],
     } while (opcao != 0);
 }
 
-// ==========================================
-// MÓDULO 4 - RELATÓRIOS (NOVO)
-// ==========================================
 void gestaoRelatorios(Usuario usuarios[], int totalUsuarios, cadastro livros[], int totalLivros, Emprestimo emprestimos[], int totalEmprestimos) {
     int opcao;
     do {
@@ -465,9 +445,6 @@ void gestaoRelatorios(Usuario usuarios[], int totalUsuarios, cadastro livros[], 
     } while (opcao != 0);
 }
 
-// ==========================================
-// FUNÇÕES AUXILIARES
-// ==========================================
 void limparBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
@@ -483,9 +460,6 @@ void menu() {
     printf("Escolha uma opção: ");
 }
 
-// ==========================================
-// MAIN
-// ==========================================
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     srand((unsigned int)time(NULL));
