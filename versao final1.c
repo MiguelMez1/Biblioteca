@@ -24,7 +24,7 @@ typedef struct {
     int ano;
     int quantTotal;
     int quantDispo;
-    int vezesEmprestado; // Bônus: para o relatório de livro mais emprestado
+    int vezesEmprestado; 
 } cadastro; // Estrutura de Livros
 
 typedef struct {
@@ -35,7 +35,7 @@ typedef struct {
 
 void limparBuffer();
 
-// USUÁRIOS (ADAPTADO COM REGRAS)//
+// USUÁRIOS 
 int cadastrarCodigoUsuario(Usuario lista[], int total) {
     int idCodigo, valido;
     do {
@@ -107,7 +107,7 @@ void excluirUsuario(Usuario usuarios[], int *totalUsuarios, Emprestimo emprestim
     scanf("%d", &codigo);
     limparBuffer();
 
-    // REGRA DE NEGÓCIO: Não excluir usuário com empréstimos ativos
+   
     for (int i = 0; i < totalEmprestimos; i++) {
         if (emprestimos[i].idUsuario == codigo && emprestimos[i].ativo == 1) {
             printf("\nERRO: Este usuário possui empréstimos ativos e não pode ser excluído!\n");
@@ -225,7 +225,6 @@ void excluirLivro(cadastro lista[], int *totalLivros, Emprestimo emprestimos[], 
     scanf("%d", &codigo);
     limparBuffer();
 
-    // REGRA DE NEGÓCIO: Não excluir livro emprestado
     for (int i = 0; i < totalEmprestimos; i++) {
         if (emprestimos[i].idLivro == codigo && emprestimos[i].ativo == 1) {
             printf("\nERRO: Este livro possui exemplares emprestados e não pode ser excluído!\n");
@@ -304,12 +303,10 @@ void realizarEmprestimo(Usuario usuarios[], int totalUsuarios, cadastro livros[]
     int idxLivro = buscarIndiceLivro(livros, totalLivros, idLivro);
     if (idxLivro == -1) { printf("\nLivro não encontrado!\n"); return; }
 
-    // REGRA: Há exemplares disponíveis?
     if (livros[idxLivro].quantDispo <= 0) {
         printf("\nNão há exemplares disponíveis deste livro no momento!\n"); return;
     }
 
-    // REGRA: O mesmo usuário não pode pegar o mesmo livro duas vezes ao mesmo tempo
     for (int i = 0; i < *totalEmprestimos; i++) {
         if (emprestimos[i].idUsuario == idUser && emprestimos[i].idLivro == idLivro && emprestimos[i].ativo == 1) {
             printf("\nEste usuário já possui uma cópia deste livro emprestada!\n"); return;
@@ -347,7 +344,7 @@ void devolverLivro(Usuario usuarios[], int totalUsuarios, cadastro livros[], int
             return;
         }
     }
-    // REGRA: Só devolver livros realmente emprestados
+
     printf("\nNenhum empréstimo ativo encontrado para este usuário e livro!\n");
 }
 
@@ -425,7 +422,7 @@ void gestaoRelatorios(Usuario usuarios[], int totalUsuarios, cadastro livros[], 
                     printf("\nQuantidade total de volumes no acervo: %d\n", totalAcervo);
                 }
                 break;
-            case 7: // Bônus: Mais emprestado
+            case 7: 
                 if (totalLivros == 0) { printf("\nNenhum livro cadastrado.\n"); break; }
                 int maxIdx = 0;
                 for(int i=1; i<totalLivros; i++) {
@@ -464,12 +461,10 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     srand((unsigned int)time(NULL));
 
-    // Arrays Principais
     Usuario listaUsuarios[MAX_USUARIOS];
     cadastro listaLivros[MAX_LIVROS];
     Emprestimo listaEmprestimos[MAX_EMPRESTIMOS];
 
-    // Contadores
     int totalUsuarios = 0;
     int totalLivros = 0;
     int totalEmprestimos = 0;
