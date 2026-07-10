@@ -248,7 +248,7 @@ void menuBuscaUsuarios(Usuario usuarios[], int total) {
         
         if (scanf("%d", &opcao) != 1) { 
             limparBuffer(); 
-            continue; 
+            continue;
         }
         limparBuffer();
 
